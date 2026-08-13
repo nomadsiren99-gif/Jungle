@@ -1,0 +1,14 @@
+---
+layout: default
+title: "Project — Jungle."
+---
+<script>
+  (function() {
+    var p = new URLSearchParams(window.location.search).get('p');
+    if (p) {
+      window.location.replace('{{ site.baseurl }}/projects/' + p + '/');
+    } else {
+      window.location.replace('{{ site.baseurl }}/');
+    }
+  })();
+</script>
