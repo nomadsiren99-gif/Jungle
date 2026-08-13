@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include head.html %}
+<body>
+<x-dc>
+<div id="jg-load" aria-hidden="true">
+  <img src="{{ site.baseurl }}/{{ site.data.site.logo.loader }}" alt="">
+  <span></span>
+</div>
+
+{% include header.html %}
+
+{{ content }}
+
+{% include footer.html %}
+</x-dc>
+
+<script type="text/x-dc" data-dc-script data-props='{"darkMode":{"editor":"boolean","default":false,"tsType":"boolean","section":"Theme"}}'>
+const SUN_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5C3 14 6 5.5 19.5 4.5c1 12-7 15.5-12.5 14"></path><path d="M4.5 19.5C8 16 11.5 12 16 9.5"></path></svg>`;
+const MOON_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 14.6A8.6 8.6 0 0 1 9.4 3.8a8.6 8.6 0 1 0 10.8 10.8z"></path><path d="M13.4 10.6c1.6-.4 3.1.1 4.1 1.2"></path></svg>`;
+
+class Component extends DCLogic {
+  state = { dark: null };
+  isDark() {
+    if (this.state.dark != null) return this.state.dark;
+    try { const v = localStorage.getItem('jungle-dark'); if (v != null) return v === '1'; } catch (e) {}
+    return {{ site.data.site.theme.default_dark | default: false }};
+  }
+  toggleTheme = () => {
+    const next = !this.isDark();
+    try { localStorage.setItem('jungle-dark', next ? '1' : '0'); } catch (e) {}
+    this.setState({ dark: next });
+  };
+  applyTheme() {
+    const dark = this.isDark();
+    document.documentElement.style.filter = '';
+    document.querySelectorAll('image-slot').forEach(el => { el.style.filter = ''; });
+    if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.removeAttribute('data-theme');
+  }
+  componentDidUpdate() { this.applyTheme(); }
+  componentDidMount() {
+    this.applyTheme();
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    els.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      el.style.transition = 'opacity .8s cubic-bezier(.2,.6,.2,1), transform .8s cubic-bezier(.2,.6,.2,1)';
+    });
+    this._io = new IntersectionObserver(entries => {
+      let i = 0;
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        el.style.transitionDelay = (i++ * 90) + 'ms';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        this._io.unobserve(el);
+      });
+    }, { threshold: 0.15 });
+    els.forEach(el => this._io.observe(el));
+  }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+  }
+  renderVals() {
+    return {
+      toggleTheme: this.toggleTheme,
+      themeIcon: React.createElement('span', {dangerouslySetInnerHTML:{__html: this.isDark() ? SUN_SVG : MOON_SVG}, style:{display:'flex'}})
+    };
+  }
+}
+</script>
+</body>
+</html>

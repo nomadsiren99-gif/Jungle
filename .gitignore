@@ -1,9 +1,9 @@
 node_modules/
 vendor/
+.bundle/
+_site/
 .DS_Store
 Thumbs.db
 *.log
 .credentials.json
 backups/*.json
-public/uploads/*
-!public/uploads/.gitkeep

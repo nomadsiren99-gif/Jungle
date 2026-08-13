@@ -1,0 +1,37 @@
+site_name: "Jungle."
+tagline: "Branding and design studio in Kathmandu"
+logo:
+  header: "assets/logo-black.svg"
+  j_mark: "assets/j-black.svg"
+  loader: "assets/j-black.svg"
+
+nav:
+  - label: "Work"
+    href: "#work"
+  - label: "About"
+    href: "about.html"
+  - label: "Contact"
+    href: "contact.html"
+
+footer:
+  lets_talk_label: "Let’s talk"
+  lets_talk_href: "mailto:hello@jungle.com.np"
+  office_heading: "Office"
+  office_address: "Jhamsikhel, Lalitpur,\nKathmandu Valley, Nepal"
+  copyright: "© 2019 - 2026 Jungle Agency"
+  contact_heading: "Contact"
+  phone: "+977 1 552 0000"
+  email: "hello@jungle.com.np"
+  follow_heading: "Follow"
+  socials:
+    - label: "Instagram"
+      href: "#"
+    - label: "Facebook"
+      href: "#"
+    - label: "Behance"
+      href: "#"
+    - label: "LinkedIn"
+      href: "#"
+
+theme:
+  default_dark: false

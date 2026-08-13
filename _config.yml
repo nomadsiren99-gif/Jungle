@@ -1,0 +1,32 @@
+title: "Jungle"
+email: hello@jungle.com.np
+description: "Branding and design studio in Kathmandu, Nepal."
+url: "https://nomadsiren99-gif.github.io"
+baseurl: "/Jungle"
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:slug/
+
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - node_modules
+  - vendor
+  - public
+  - admin
+  - backups
