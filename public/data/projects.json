@@ -1,0 +1,260 @@
+{
+  "projects": [
+    {
+      "slug": "himalayan-java",
+      "no": "01",
+      "name": "Himalayan Java",
+      "tags": "Brand Identity · Coffee Culture",
+      "client": "Himalayan Java Coffee",
+      "year": "2024",
+      "scope": "Brand Strategy, Visual Identity, Packaging",
+      "role": "Lead Branding Agency",
+      "lede": "Redefining Nepal's pioneer coffee culture for a contemporary global audience.",
+      "thumb": "demo/himalayan-java.png",
+      "video": "",
+      "heroImage": "demo/himalayan-java-hero.png",
+      "imageA": "demo/himalayan-java-a.png",
+      "imageB": "demo/himalayan-java-b.png",
+      "imageC": "demo/himalayan-java-c.png",
+      "workDescription": "Himalayan Java pioneered specialty coffee culture in Nepal. We crafted an elevated identity system that honors artisanal roots while expanding seamlessly across retail packaging, interior touchpoints, and digital ordering.",
+      "workDetails": [
+        { "label": "Deliverables", "value": "Brand Architecture, Custom Typography, Retail Packaging" },
+        { "label": "Timeline", "value": "4 Months" },
+        { "label": "Location", "value": "Kathmandu / International Outlets" }
+      ],
+      "challenge": "As competition grew, Himalayan Java needed a cohesive brand architecture that unified franchised locations while preserving local warmth and craftsmanship.",
+      "approach": "We developed an ecosystem centered around warmth, ritual, and origin story — pairing bespoke serif typography with organic earth tones.",
+      "quote": "Jungle gave our heritage brand a renewed purpose and visual language that speaks to both long-time regulars and new international guests.",
+      "quoteBy": "Founder, Himalayan Java",
+      "results": [
+        { "figure": "+38%", "label": "Customer engagement across digital channels" },
+        { "figure": "24+", "label": "Outlets unified under new brand guidelines" },
+        { "figure": "100%", "label": "Sustainable packaging adoption" }
+      ]
+    },
+    {
+      "slug": "khalti",
+      "no": "02",
+      "name": "Khalti Digital Wallet",
+      "tags": "Fintech · UI/UX · Brand System",
+      "client": "Khalti Pvt. Ltd",
+      "year": "2023",
+      "scope": "Rebrand, Product Interface, Design System",
+      "role": "Strategic Design Partner",
+      "lede": "Empowering millions with modern digital financial services.",
+      "thumb": "demo/khalti.png",
+      "video": "",
+      "heroImage": "demo/khalti-hero.png",
+      "imageA": "demo/khalti-a.png",
+      "imageB": "demo/khalti-b.png",
+      "imageC": "demo/khalti-c.png",
+      "workDescription": "A complete visual and experience refresh for one of Nepal's largest digital wallets. The new system simplifies complex financial transactions into friendly, approachable micro-interactions.",
+      "workDetails": [
+        { "label": "Deliverables", "value": "Brand refresh, Mobile Design System, Marketing Collateral" },
+        { "label": "Platform", "value": "iOS, Android, Web" },
+        { "label": "Users", "value": "3 Million+ Active Users" }
+      ],
+      "challenge": "Financial technology can feel intimidating. Khalti needed to bridge the gap between technical reliability and effortless everyday consumer habits.",
+      "approach": "We designed a vibrant palette, fluid micro-animations, and clean typographic hierarchy that make payments feel rewarding and intuitive.",
+      "quote": "The team at Jungle made our product accessible to everyone — from tech-savvy youth to first-time digital wallet users.",
+      "quoteBy": "Product Lead, Khalti",
+      "results": [
+        { "figure": "3M+", "label": "Active app downloads reached" },
+        { "figure": "+52%", "label": "Daily transaction completion rate" },
+        { "figure": "4.8", "label": "App Store user rating" }
+      ]
+    },
+    {
+      "slug": "sherpa-brewery",
+      "no": "03",
+      "name": "Sherpa Brewery",
+      "tags": "Craft Beer · Packaging · Identity",
+      "client": "Sherpa Brewery Co.",
+      "year": "2023",
+      "scope": "Packaging Design, Brand Positioning, Campaign",
+      "role": "Brand & Creative Agency",
+      "lede": "Himalayan craft brewing rooted in mountain spirit and brewing mastery.",
+      "thumb": "demo/sherpa-brewery.png",
+      "video": "",
+      "heroImage": "demo/sherpa-brewery-hero.png",
+      "imageA": "demo/sherpa-brewery-a.png",
+      "imageB": "demo/sherpa-brewery-b.png",
+      "imageC": "demo/sherpa-brewery-c.png",
+      "workDescription": "Sherpa Brewery produces authentic craft beers in the Himalayan foothills. We created a bold packaging series featuring custom woodcut illustrations and tactile finishes.",
+      "workDetails": [
+        { "label": "Deliverables", "value": "Can & Bottle Packaging, Tap Handles, POS Displays" },
+        { "label": "Variants", "value": "5 Core Brews + Seasonal Releases" },
+        { "label": "Market", "value": "Nationwide & Export" }
+      ],
+      "challenge": "Standing out on crowded craft beer shelves while conveying the authentic story of high-altitude brewing.",
+      "approach": "Rich metallic accents, mountain silhouettes, and bold typography that reflect rugged elegance.",
+      "quote": "Our cans tell a story before the first sip. Jungle captured the soul of our brewery perfectly.",
+      "quoteBy": "Head Brewer, Sherpa Brewery",
+      "results": [
+        { "figure": "2.5x", "label": "Retail shelf pickup rate" },
+        { "figure": "5", "label": "National design awards won" },
+        { "figure": "+65%", "label": "Growth in craft beer segment" }
+      ]
+    },
+    {
+      "slug": "everest-trails",
+      "no": "04",
+      "name": "Everest Trails",
+      "tags": "Eco Tourism · Wayfinding · Digital",
+      "client": "Everest Eco Trails",
+      "year": "2024",
+      "scope": "Identity, Wayfinding System, Interactive Map",
+      "role": "Design & Experience Studio",
+      "lede": "Sustainable trekking and cultural journeys in the high Himalayas.",
+      "thumb": "demo/everest-trails.png",
+      "video": "",
+      "heroImage": "demo/everest-trails-hero.png",
+      "imageA": "demo/everest-trails-a.png",
+      "imageB": "demo/everest-trails-b.png",
+      "imageC": "demo/everest-trails-c.png",
+      "workDescription": "Everest Trails offers responsible trekking experiences. We created an eco-focused identity along with weather-resistant physical wayfinding markers and an interactive trail guide.",
+      "workDetails": [
+        { "label": "Deliverables", "value": "Brand Guide, Physical Wayfinding, Web Experience" },
+        { "label": "Focus", "value": "Zero-impact eco-tourism" },
+        { "label": "Coverage", "value": "Khumbu Region Trails" }
+      ],
+      "challenge": "Creating trail signage and brand materials that withstand extreme weather while respecting fragile mountain ecosystems.",
+      "approach": "Minimalist laser-etched slate signage combined with a lightweight offline digital guide for trekkers.",
+      "quote": "Jungle respected the mountains as much as we do. Their design solution is sustainable, functional, and striking.",
+      "quoteBy": "Managing Director, Everest Trails",
+      "results": [
+        { "figure": "120km", "label": "Trail network mapped and signed" },
+        { "figure": "-40%", "label": "Paper trail map waste reduced" },
+        { "figure": "98%", "label": "Positive trekker safety reviews" }
+      ]
+    },
+    {
+      "slug": "basanta-textiles",
+      "no": "05",
+      "name": "Basanta Textiles",
+      "tags": "Heritage Craft · Brand Identity",
+      "client": "Basanta Weavers",
+      "year": "2022",
+      "scope": "Heritage Brand Strategy, Packaging, Exhibition",
+      "role": "Brand Agency",
+      "lede": "Handwoven Himalayan woolens reimagined for modern luxury.",
+      "thumb": "demo/basanta-textiles.png",
+      "video": "",
+      "heroImage": "demo/basanta-textiles-hero.png",
+      "imageA": "demo/basanta-textiles-a.png",
+      "imageB": "demo/basanta-textiles-b.png",
+      "imageC": "demo/basanta-textiles-c.png",
+      "workDescription": "Basanta Textiles works with master weavers across Nepal. We elevated their brand identity to position handwoven Cashmere and Dhaka textiles in luxury international boutiques.",
+      "workDetails": [
+        { "label": "Deliverables", "value": "Luxury Packaging, Artisan Storytelling, Lookbook" },
+        { "label": "Craft", "value": "Hand-loomed Cashmere & Silk" },
+        { "label": "Distribution", "value": "Boutiques in Tokyo, Paris, Kathmandu" }
+      ],
+      "challenge": "Elevating traditional weaving from local souvenir status to high-end global luxury.",
+      "approach": "Tactile unbleached paper boxes, blind debossed logos, and weaver signature cards attached to every garment.",
+      "quote": "Our artisans take immense pride seeing their work presented with such elegance and respect.",
+      "quoteBy": "Creative Director, Basanta Textiles",
+      "results": [
+        { "figure": "3x", "label": "Average order value increase" },
+        { "figure": "15", "label": "Global luxury stockists acquired" },
+        { "figure": "100%", "label": "Fair-trade artisan compensation" }
+      ]
+    },
+    {
+      "slug": "post-cast",
+      "no": "06",
+      "name": "Post Cast",
+      "tags": "Media · Audio Branding · Web",
+      "client": "Kathmandu Post Media",
+      "year": "2023",
+      "scope": "Audio Identity, Web Platform, Podcast Cover Art",
+      "role": "Digital Studio",
+      "lede": "Nepal's premier investigative journalism podcast network.",
+      "thumb": "demo/post-cast.png",
+      "video": "",
+      "heroImage": "demo/post-cast-hero.png",
+      "imageA": "demo/post-cast-a.png",
+      "imageB": "demo/post-cast-b.png",
+      "imageC": "demo/post-cast-c.png",
+      "workDescription": "Post Cast brings in-depth reporting into the audio space. We crafted a distinctive audio sonic mark, podcast cover art templates, and a streamlined audio web player.",
+      "workDetails": [
+        { "label": "Deliverables", "value": "Sonic Signature, Cover Art System, Web Audio Player" },
+        { "label": "Shows", "value": "6 Weekly Original Series" },
+        { "label": "Reach", "value": "Spotify, Apple Podcasts, Web" }
+      ],
+      "challenge": "Building a unified media identity for diverse shows ranging from daily news summaries to long-form investigative audio.",
+      "approach": "A modular typographic frame system with high-contrast editorial photography and a signature sound logo.",
+      "quote": "Jungle gave our audio journalism a distinct identity that listeners instantly recognize across podcast platforms.",
+      "quoteBy": "Editor-in-Chief, Post Cast",
+      "results": [
+        { "figure": "500k+", "label": "Monthly podcast streams" },
+        { "figure": "#1", "label": "News podcast rank in region" },
+        { "figure": "+80%", "label": "Subscriber retention" }
+      ]
+    },
+    {
+      "slug": "goldstar",
+      "no": "07",
+      "name": "Goldstar Footwear",
+      "tags": "Footwear · Campaign · Rebrand",
+      "client": "Goldstar Shoes",
+      "year": "2023",
+      "scope": "Campaign Direction, Streetwear Positioning, Lookbook",
+      "role": "Creative Direction",
+      "lede": "An iconic everyday sneaker transformed into a streetwear staple.",
+      "thumb": "demo/goldstar.png",
+      "video": "",
+      "heroImage": "demo/goldstar-hero.png",
+      "imageA": "demo/goldstar-a.png",
+      "imageB": "demo/goldstar-b.png",
+      "imageC": "demo/goldstar-c.png",
+      "workDescription": "Goldstar is a household footwear brand. We led the creative campaign repositioning Goldstar sneakers among urban youth and street style subcultures.",
+      "workDetails": [
+        { "label": "Deliverables", "value": "Campaign Photography, Video Spots, Streetwear Lookbook" },
+        { "label": "Target", "value": "Gen Z & Urban Youth" },
+        { "label": "Channels", "value": "Social, Outdoor, Retail Pop-ups" }
+      ],
+      "challenge": "Transitioning a utilitarian mass-market shoe into an aspirational lifestyle brand without alienating loyal buyers.",
+      "approach": "Gritty urban photography, neon typography, and collaborations with local musicians and skateboarders.",
+      "quote": "Jungle tapped into youth culture in a way that felt authentic, energetic, and undeniably fresh.",
+      "quoteBy": "Marketing Head, Goldstar Shoes",
+      "results": [
+        { "figure": "4.2M", "label": "Social campaign impressions" },
+        { "figure": "+40%", "label": "Sales increase in youth demographic" },
+        { "figure": "3", "label": "Sold-out limited edition drops" }
+      ]
+    },
+    {
+      "slug": "marks",
+      "no": "08",
+      "name": "Marks & Spaces",
+      "tags": "Architecture · Environmental Design",
+      "client": "Marks Studio",
+      "year": "2024",
+      "scope": "Identity, Environmental Graphics, Portfolio Web",
+      "role": "Branding & Interactive Studio",
+      "lede": "Spatial design studio crafting minimal urban interventions.",
+      "thumb": "demo/marks.png",
+      "video": "",
+      "heroImage": "demo/marks-hero.png",
+      "imageA": "demo/marks-a.png",
+      "imageB": "demo/marks-b.png",
+      "imageC": "demo/marks-c.png",
+      "workDescription": "Marks & Spaces designs minimal architectural interiors. We designed an identity based on architectural grids, blind embossing, and a high-performance portfolio website.",
+      "workDetails": [
+        { "label": "Deliverables", "value": "Brand System, Monograph Print Book, Portfolio Website" },
+        { "label": "Aesthetic", "value": "Architectural Minimalism" },
+        { "label": "Format", "value": "Digital & Custom Print Monograph" }
+      ],
+      "challenge": "Reflecting architectural precision and spatial elegance through print and digital collateral.",
+      "approach": "Monochrome palette, strict grid alignment, oversized photography, and refined architectural typography.",
+      "quote": "The identity Jungle created feels like an extension of our architectural philosophy — clean, structured, and timeless.",
+      "quoteBy": "Principal Architect, Marks & Spaces",
+      "results": [
+        { "figure": "100%", "label": "Client inquiry conversion" },
+        { "figure": "2", "label": "International architectural features" },
+        { "figure": "0.4s", "label": "Portfolio site load time" }
+      ]
+    }
+  ]
+}

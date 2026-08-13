@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./data/site.js"></script>
+<script src="./data/about.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  html,body{margin:0;padding:0;background:#fff;color:#0a0a0a;font-family:'Archivo',sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  a:hover{opacity:.55}
+  ::selection{background:#0a0a0a;color:#fff}
+  @keyframes jg-fade{from{opacity:0;transform:translateY(.45em)}to{opacity:1;transform:none}}
+  html{scroll-behavior:smooth}
+  @keyframes jg-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes jg-in{from{opacity:0}to{opacity:1}}
+  header{animation:jg-in .8s ease both}
+  header nav a{position:relative}
+  header nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+  header nav a:hover::after{transform:scaleX(1)}
+  header nav a:hover{opacity:1}
+  header button{transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s ease,color .3s ease}
+  header button:hover{transform:rotate(-18deg) scale(1.06)}
+  header>div>div span{transition:transform .35s cubic-bezier(.16,1,.3,1),width .35s ease}
+  header>div>div:hover span:nth-child(2){width:20px!important}
+  footer>a{display:inline-block;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .4s ease}
+  footer>a:hover{transform:translateX(-14px);opacity:1}
+  footer a,section a{transition:opacity .3s ease}
+
+  html[data-theme="dark"],html[data-theme="dark"] body{background:#0a0a0a!important;color:#fff!important}
+  html[data-theme="dark"] header{background:rgba(10,10,10,.94)!important}
+  html[data-theme="dark"] header img,html[data-theme="dark"] footer img{filter:invert(1)}
+  html[data-theme="dark"] header span[style*="background:#0a0a0a"]{background:#fff!important}
+  html[data-theme="dark"] header button{color:#fff!important;border-color:#fff!important}
+  html[data-theme="dark"] section,html[data-theme="dark"] footer{background:#0a0a0a!important;color:#fff!important;border-color:#2a2a2a!important}
+  html[data-theme="dark"] section[id="services"]{background:#141414!important}
+  html[data-theme="dark"] div[style*="background:#f2f2f0"]{background:#1c1c1c!important}
+  html[data-theme="dark"] span[style*="background:#0a0a0a"]{background:#fff!important}
+  html[data-theme="dark"] a[style*="border-bottom:2px solid #0a0a0a"]{border-color:#fff!important}
+  html[data-theme="dark"] [style*="color:#0a0a0a"]{color:#fff!important}
+  html[data-theme="dark"] [style*="color:#555"],html[data-theme="dark"] [style*="color:#444"],html[data-theme="dark"] [style*="color:#333"],html[data-theme="dark"] [style*="color:#666"]{color:#a8a8a8!important}
+  html[data-theme="dark"] [style*="color:#ccc"],html[data-theme="dark"] [style*="color:#bbb"]{color:#4a4a4a!important}
+
+  @media (max-width:820px){
+    header{padding:16px 20px!important}
+    header>div{gap:14px!important}
+    header nav{gap:18px!important;font-size:15px!important}
+    header img{height:26px!important}
+    header button{padding:6px 10px!important;font-size:11px!important}
+    section{padding-left:20px!important;padding-right:20px!important;padding-top:56px!important;padding-bottom:56px!important}
+    section>div[style*="grid-template-columns:260px"]{grid-template-columns:1fr!important;gap:20px!important}
+    section p,section div{font-size:auto}
+    section h1{font-size:40px!important}
+    section h2{font-size:26px!important}
+    section>p{font-size:24px!important}
+    #clients>div>div:last-child{grid-template-columns:1fr 1fr!important;gap:14px 20px!important}
+    section>div[style*="height:460px"]{grid-template-columns:1fr!important;height:auto!important}
+    section>div[style*="height:460px"]>div{height:240px!important}
+    #contact{padding:56px 20px 40px!important}
+    #contact>a{text-align:left!important;font-size:52px!important}
+    #contact>div{grid-template-columns:1fr!important;gap:36px!important;margin-top:64px!important}
+    #contact p[style*="padding-left"],#contact div[style*="padding-left"]{padding-left:0!important}
+    #contact p[style*="margin:120px"]{margin-top:32px!important}
+  }
+
+  #jg-load{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:#fff;animation:jg-load-out .75s cubic-bezier(.7,0,.2,1) 1.15s forwards}
+  #jg-load img{width:72px;display:block;animation:jg-load-mark 1.05s cubic-bezier(.16,1,.3,1) both}
+  #jg-load span{display:block;height:1px;width:120px;background:#0a0a0a;transform-origin:left;animation:jg-load-rule 1.15s cubic-bezier(.5,0,.2,1) both}
+  @keyframes jg-load-mark{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
+  @keyframes jg-load-rule{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes jg-load-out{to{transform:translateY(-101%)}}
+  html[data-theme="dark"] #jg-load{background:#0a0a0a!important}
+  html[data-theme="dark"] #jg-load img{filter:invert(1)}
+  html[data-theme="dark"] #jg-load span{background:#fff}
+  @media (prefers-reduced-motion:reduce){#jg-load{display:none}}
+</style>
+</helmet>
+
+<div id="jg-load" aria-hidden="true">
+  <img src="{{ site.logo.loader }}" alt="">
+  <span></span>
+</div>
+
+<header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:26px 44px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px)">
+  <a href="index.html" style="display:flex;align-items:center"><img src="{{ site.logo.header }}" alt="{{ site.siteName }}" style="height:36px;display:block"></a>
+  <div style="display:flex;align-items:center;gap:44px">
+    <nav style="display:flex;gap:40px;font-size:19px;font-weight:500">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="3">
+        <a href="{{ n.href }}" style="{{ n.style }}">{{ n.label }}</a>
+      </sc-for>
+    </nav>
+    <button onClick="{{ toggleTheme }}" aria-label="Toggle theme" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;font-family:inherit;color:#0a0a0a;background:none;border:1px solid #0a0a0a;border-radius:999px;cursor:pointer;padding:0">{{ themeIcon }}</button>
+    <div style="display:flex;flex-direction:column;gap:6px;cursor:pointer;padding:4px 0">
+      <span style="display:block;width:30px;height:2.5px;background:#0a0a0a"></span>
+      <span style="display:block;width:30px;height:2.5px;background:#0a0a0a"></span>
+      <span style="display:block;width:30px;height:2.5px;background:#0a0a0a"></span>
+    </div>
+  </div>
+</header>
+
+<section style="padding:90px 44px 100px">
+  <div style="font-size:19px;font-weight:500;margin-bottom:56px">{{ about.intro.label }}</div><p data-reveal="" style="margin:0;max-width:1100px;font-size:clamp(26px,3.2vw,42px);font-weight:500;line-height:1.3;letter-spacing:-0.02em;text-wrap:pretty">{{ about.intro.paragraph }}</p>
+  
+</section>
+
+<section style="padding:0 44px 110px">
+  
+</section>
+
+<section style="padding:90px 44px;background:#111;color:#fff">
+  <div style="display:grid;grid-template-columns:260px 1fr;gap:40px">
+    <div style="font-size:22px;font-weight:500">{{ about.story.label }}</div>
+    <div data-reveal="" style="max-width:760px;display:flex;flex-direction:column;gap:28px;font-size:19px;line-height:1.65;color:#d6d6d6">
+      <sc-for list="{{ about.story.paragraphs }}" as="par" hint-placeholder-count="2">
+        <p style="margin:0">{{ par }}</p>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="padding:90px 44px;border-bottom:1px solid #e5e5e5">
+  <div style="display:grid;grid-template-columns:260px 1fr;gap:40px">
+    <div style="font-size:22px;font-weight:500">{{ about.facts.label }}</div>
+    <div data-reveal="" style="max-width:820px;display:flex;flex-direction:column;gap:16px;font-size:18px;line-height:1.5">
+      <sc-for list="{{ about.facts.items }}" as="f" hint-placeholder-count="6">
+        <div><span style="color:#9a9a9a">{{ f.key }}:</span> {{ f.value }}</div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section style="padding:90px 44px 110px">
+  <div style="display:grid;grid-template-columns:260px 1fr;gap:40px;margin-bottom:64px">
+    <div style="font-size:22px;font-weight:500">{{ about.studio.label }}</div>
+    <div data-reveal="">
+      <h2 style="margin:0 0 24px;font-size:clamp(26px,3vw,40px);font-weight:500;line-height:1.3;letter-spacing:-0.01em;max-width:800px">{{ about.studio.heading }}</h2>
+      <p style="margin:0;max-width:640px;font-size:18px;line-height:1.6;color:#555">{{ about.studio.paragraph }}</p>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px;height:460px">
+    <div style="background:#f2f2f0;overflow:hidden"><image-slot id="studio1" shape="rect" src="{{ about.studio.images[0] }}" placeholder="Drop a studio photo"></image-slot></div>
+    <div style="background:#f2f2f0;overflow:hidden"><image-slot id="studio2" shape="rect" src="{{ about.studio.images[1] }}" placeholder="Drop a studio photo"></image-slot></div>
+    <div style="background:#f2f2f0;overflow:hidden"><image-slot id="studio3" shape="rect" src="{{ about.studio.images[2] }}" placeholder="Drop a studio photo"></image-slot></div>
+  </div>
+</section>
+
+<footer id="contact" style="padding:100px 44px 60px;background:#fff;color:#0a0a0a;border-top:1px solid #e5e5e5">
+  <a data-reveal="" href="{{ site.footer.letsTalkHref }}" style="display:block;text-align:right;font-size:clamp(64px,10vw,170px);font-weight:500;letter-spacing:-0.03em;line-height:1">{{ site.footer.letsTalkLabel }}</a>
+  <div style="display:grid;grid-template-columns:220px 1fr 1fr 1fr;gap:48px;margin-top:200px;font-size:17px;line-height:1.6">
+    <div><img src="{{ site.logo.jMark }}" alt="{{ site.siteName }}" style="height:64px;display:block"></div>
+    <div>
+      <h3 style="margin:0 0 28px;font-size:19px;font-weight:500">{{ site.footer.officeHeading }}</h3>
+      <p style="margin:0;padding-left:52px;white-space:pre-line">{{ site.footer.officeAddress }}</p>
+      <p style="margin:120px 0 0;font-size:15px">{{ site.footer.copyright }}</p>
+    </div>
+    <div>
+      <h3 style="margin:0 0 28px;font-size:19px;font-weight:500">{{ site.footer.contactHeading }}</h3>
+      <div style="display:flex;flex-direction:column;gap:2px;padding-left:52px">
+        <a href="tel:{{ phoneHref }}">{{ site.footer.phone }}</a>
+        <a href="mailto:{{ site.footer.email }}">{{ site.footer.email }}</a>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin:0 0 28px;font-size:19px;font-weight:500">{{ site.footer.followHeading }}</h3>
+      <div style="display:flex;flex-direction:column;gap:2px;padding-left:52px">
+        <sc-for list="{{ site.footer.socials }}" as="s" hint-placeholder-count="4">
+          <a href="{{ s.href }}">{{ s.label }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;darkMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+const SUN_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5C3 14 6 5.5 19.5 4.5c1 12-7 15.5-12.5 14"></path><path d="M4.5 19.5C8 16 11.5 12 16 9.5"></path></svg>`;
+const MOON_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 14.6A8.6 8.6 0 0 1 9.4 3.8a8.6 8.6 0 1 0 10.8 10.8z"></path><path d="M13.4 10.6c1.6-.4 3.1.1 4.1 1.2"></path></svg>`;
+
+const SITE_URL = 'data/site.json';
+const ABOUT_URL = 'data/about.json';
+
+const SITE_DEFAULTS = {
+  siteName: 'Jungle.',
+  logo: { header: 'assets/logo-black.svg', jMark: 'assets/j-black.svg', loader: 'assets/j-black.svg' },
+  nav: [
+    { label: 'Work', href: 'index.html#work' },
+    { label: 'About', href: 'about.html' },
+    { label: 'Contact', href: 'contact.html' }
+  ],
+  footer: {
+    letsTalkLabel: 'Let\u2019s talk',
+    letsTalkHref: 'mailto:hello@jungle.com.np',
+    officeHeading: 'Office',
+    officeAddress: 'Jhamsikhel, Lalitpur,\nKathmandu Valley, Nepal',
+    copyright: '\u00a9 2019 - 2026 Jungle Agency',
+    contactHeading: 'Contact',
+    phone: '+977 1 552 0000',
+    email: 'hello@jungle.com.np',
+    followHeading: 'Follow',
+    socials: [
+      { label: 'Instagram', href: '#' },
+      { label: 'Facebook', href: '#' },
+      { label: 'Behance', href: '#' },
+      { label: 'LinkedIn', href: '#' }
+    ]
+  },
+  theme: { defaultDark: false }
+};
+
+const ABOUT_DEFAULTS = {
+  intro: {
+    label: 'About us',
+    paragraph: 'Jungle is an ecosystem of design and strategy based in Kathmandu, Nepal. We help businesses bring clarity to their ideas and turn them into brands with purpose, character, and lasting value.'
+  },
+  story: {
+    label: 'Our story',
+    paragraphs: [
+      'Jungle was founded with a simple belief: great brands grow like ecosystems. Every identity we build starts from the roots, understanding a business, its people, and the story only it can tell, then grows into strategy, design, and communication that feel alive.',
+      'We work as an independent studio alongside leading local brands and new businesses, from first sketch to launch and beyond. Our W.I.L.D method (Wonder, Identity, Launch, Drive) keeps every project grounded in research and driven by craft.'
+    ]
+  },
+  facts: {
+    label: 'Short facts',
+    items: [
+      { key: 'WE', value: 'Independent design and strategy studio with an international perspective' },
+      { key: 'PHILOSOPHY', value: 'Brands grow like ecosystems' },
+      { key: 'METHOD', value: 'W.I.L.D \u2014 Wonder, Identity, Launch, Drive' },
+      { key: 'SECTOR', value: 'Multidisciplinary' },
+      { key: 'FOCUS', value: 'Brand strategy, Identity, Web design, Content, Launch' },
+      { key: 'EXPERTISE', value: 'Problem-solving, Strategic thinking, Storytelling, Craft' }
+    ]
+  },
+  studio: {
+    label: 'Our studio',
+    heading: 'A calm place for designers to gain more creativity and happiness',
+    paragraph: 'A garden, a coffee corner, and a friendly space for client workshops, a small family for our creatives to enjoy and grow.',
+    images: ['demo/space-a.png', 'demo/space-b.png', 'demo/space-c.png']
+  }
+};
+
+class Component extends DCLogic {
+  state = { wi: 0, dark: null, site: null, about: null };
+  isDark() {
+    if (this.state.dark != null) return this.state.dark;
+    try { const v = localStorage.getItem('jungle-dark'); if (v != null) return v === '1'; } catch (e) {}
+    const site = this.state.site || SITE_DEFAULTS;
+    const def = site.theme && site.theme.defaultDark != null ? site.theme.defaultDark : null;
+    return def != null ? def : (this.props.darkMode ?? false);
+  }
+  toggleTheme = () => {
+    const next = !this.isDark();
+    try { localStorage.setItem('jungle-dark', next ? '1' : '0'); } catch (e) {}
+    this.setState({ dark: next });
+  };
+  applyTheme() {
+    const dark = this.isDark();
+    document.documentElement.style.filter = '';
+    document.querySelectorAll('image-slot').forEach(el => { el.style.filter = ''; });
+    if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.removeAttribute('data-theme');
+  }
+  componentDidUpdate() { this.applyTheme(); }
+  componentDidMount() {
+    this.applyTheme();
+    fetch(SITE_URL, { cache: 'no-cache' })
+      .then(r => r.json())
+      .then(d => this.setState({ site: d || window.JUNGLE_SITE || {} }))
+      .catch(e => { if (window.JUNGLE_SITE) this.setState({ site: window.JUNGLE_SITE }); });
+    fetch(ABOUT_URL, { cache: 'no-cache' })
+      .then(r => r.json())
+      .then(d => this.setState({ about: d || window.JUNGLE_ABOUT || {} }))
+      .catch(e => { if (window.JUNGLE_ABOUT) this.setState({ about: window.JUNGLE_ABOUT }); });
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    els.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      el.style.transition = 'opacity .8s cubic-bezier(.2,.6,.2,1), transform .8s cubic-bezier(.2,.6,.2,1)';
+    });
+    this._io = new IntersectionObserver(entries => {
+      let i = 0;
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        el.style.transitionDelay = (i++ * 90) + 'ms';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        this._io.unobserve(el);
+      });
+    }, { threshold: 0.15 });
+    els.forEach(el => this._io.observe(el));
+  }
+  componentWillUnmount() {
+    clearInterval(this._t);
+    if (this._io) this._io.disconnect();
+  }
+  renderVals() {
+    const site = this.state.site || SITE_DEFAULTS;
+    const about = this.state.about || ABOUT_DEFAULTS;
+    const navSrc = site.nav && site.nav.length ? site.nav : SITE_DEFAULTS.nav;
+    const phoneHref = String(site.footer && site.footer.phone || SITE_DEFAULTS.footer.phone).replace(/[^\d+]/g, '');
+    return {
+      site: site,
+      about: about,
+      toggleTheme: this.toggleTheme,
+      themeIcon: React.createElement('span', {dangerouslySetInnerHTML:{__html: this.isDark() ? SUN_SVG : MOON_SVG}, style:{display:'flex'}}),
+      phoneHref: phoneHref,
+      navItems: navSrc.map((n, i) => Object.assign({}, n, { style: { color: i === 1 ? '#9a9a9a' : '' } }))
+    };
+  }
+}
+</script>
+</body>
+</html>

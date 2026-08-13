@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jungle. — CMS</title>
+<script crossorigin src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fafaf9;--bg-2:#fff;--bg-3:#f4f4f1;--bg-4:#ebebe7;
+  --fg:#0a0a0a;--fg-2:#444;--fg-3:#7a7a7a;--fg-4:#a0a0a0;
+  --line:#e5e5e0;--line-2:#d0d0c8;
+  --accent:#0a0a0a;--accent-fg:#fff;
+  --danger:#c4302b;--danger-bg:#fef0ee;--warn:#a8651e;
+  --radius:6px;--radius-lg:10px;
+  --font:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+html,body{height:100%;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:14px;line-height:1.5}
+a{color:inherit}
+button{font-family:inherit;font-size:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input,textarea,select{font-family:inherit;font-size:inherit;color:inherit}
+
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);padding:20px}
+.login-card{width:100%;max-width:380px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-lg);padding:36px 32px}
+.login-card .brand{font-size:22px;font-weight:600;margin-bottom:24px;letter-spacing:-0.02em}
+.login-card .label{display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-3);margin:18px 0 6px}
+.login-card input{width:100%;padding:10px 12px;border:1px solid var(--line-2);border-radius:var(--radius);background:var(--bg-2)}
+.login-card input:focus{outline:0;border-color:var(--fg)}
+.login-card .err{color:var(--danger);font-size:13px;margin-top:8px;background:var(--danger-bg);padding:8px 10px;border-radius:var(--radius)}
+.login-card .btn{margin-top:24px;width:100%;padding:11px 16px;background:var(--accent);color:var(--accent-fg);border-radius:var(--radius);font-weight:500}
+.login-card .btn:hover{opacity:.88}
+.login-card .hint{font-size:12px;color:var(--fg-4);margin-top:16px;text-align:center}
+
+.app{display:grid;grid-template-columns:240px 1fr;height:100vh;min-height:0}
+.sidebar{background:var(--bg-2);border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.sidebar .brand{padding:18px 20px;font-size:18px;font-weight:600;letter-spacing:-0.02em;border-bottom:1px solid var(--line)}
+.sidebar nav{flex:1;overflow-y:auto;padding:10px 0}
+.sidebar nav .group-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.1em;color:var(--fg-4);padding:14px 20px 6px}
+.sidebar nav .item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;color:var(--fg-2);border-left:2px solid transparent}
+.sidebar nav .item:hover{background:var(--bg-3)}
+.sidebar nav .item.active{background:var(--bg-3);color:var(--fg);border-left-color:var(--fg)}
+.sidebar nav .item .icon{width:14px;height:14px;opacity:.7}
+.sidebar .user{padding:14px 20px;border-top:1px solid var(--line);font-size:12px;color:var(--fg-3);display:flex;justify-content:space-between;align-items:center}
+.sidebar .user button{font-size:12px;color:var(--fg-3);text-decoration:underline}
+.sidebar .user button:hover{color:var(--fg)}
+
+.main{display:flex;flex-direction:column;min-height:0;background:var(--bg)}
+.main-head{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;background:var(--bg-2);border-bottom:1px solid var(--line)}
+.main-head h1{font-size:17px;font-weight:600;letter-spacing:-0.01em}
+.main-head .actions{display:flex;gap:8px;align-items:center}
+.main-head .dirty{font-size:12px;color:var(--warn);margin-right:6px}
+
+.btn{padding:8px 14px;border:1px solid var(--line-2);border-radius:var(--radius);background:var(--bg-2);font-weight:500;display:inline-flex;align-items:center;gap:6px}
+.btn:hover{border-color:var(--fg-3)}
+.btn.primary{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.btn.primary:hover{opacity:.88}
+.btn.danger{color:var(--danger)}
+.btn.danger:hover{background:var(--danger-bg);border-color:var(--danger)}
+.btn.sm{padding:5px 10px;font-size:12px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+.editor{flex:1;overflow-y:auto;padding:28px 32px 64px;max-width:1080px;width:100%}
+.empty{padding:80px 20px;text-align:center;color:var(--fg-3)}
+
+.field{margin-bottom:18px}
+.field-label{display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-3);margin-bottom:6px}
+.field-help{font-size:12px;color:var(--fg-4);margin-top:4px}
+.field-input,.field-textarea{width:100%;padding:8px 10px;border:1px solid var(--line-2);border-radius:var(--radius);background:var(--bg-2)}
+.field-input:focus,.field-textarea:focus{outline:0;border-color:var(--fg)}
+.field-textarea{font-family:var(--font);min-height:80px;resize:vertical;line-height:1.5}
+.field-textarea.tall{min-height:140px}
+
+.section{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-lg);padding:20px 22px;margin-bottom:14px}
+.section h3{font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-2);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+
+.list-item{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-lg);padding:18px 20px;margin-bottom:12px;position:relative}
+.list-item .item-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.list-item .item-head .item-title{font-size:12px;font-weight:500;color:var(--fg-3);text-transform:uppercase;letter-spacing:.06em}
+.add-item{width:100%;padding:10px;border:1px dashed var(--line-2);border-radius:var(--radius);color:var(--fg-3);font-size:13px;background:var(--bg-2);cursor:pointer}
+.add-item:hover{border-color:var(--fg-3);color:var(--fg)}
+
+.media-thumb{width:60px;height:60px;border:1px solid var(--line);background:var(--bg-3);background-size:cover;background-position:center;border-radius:4px;flex-shrink:0}
+.media-row{display:flex;gap:10px;align-items:center}
+.media-row .field-input{flex:1}
+
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-top:12px}
+.media-card{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:transform .12s,border-color .12s}
+.media-card:hover{transform:translateY(-2px);border-color:var(--fg-3)}
+.media-card .img{aspect-ratio:1;background:var(--bg-3);background-size:cover;background-position:center}
+.media-card .meta{padding:8px 10px;font-size:11px;color:var(--fg-3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.media-picker-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px}
+.media-picker{background:var(--bg-2);border-radius:var(--radius-lg);width:100%;max-width:920px;max-height:90vh;overflow-y:auto;padding:24px}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--fg);color:var(--bg-2);padding:10px 16px;border-radius:var(--radius);font-size:13px;z-index:200;animation:slidein .2s ease}
+.toast.error{background:var(--danger);color:#fff}
+@keyframes slidein{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<script>
+const {createElement: h, useState, useEffect, useCallback} = React;
+const {createRoot} = ReactDOM;
+
+const api = {
+  async getSession() { return (await fetch('/api/session')).json(); },
+  async login(u, p) { return (await fetch('/api/login', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({username:u,password:p})})).json(); },
+  async logout() { await fetch('/api/logout', {method:'POST'}); },
+  async getAll() { return (await fetch('/api/data')).json(); },
+  async save(name, data, csrf) { return (await fetch('/api/data/' + name, {method:'PUT', headers:{'Content-Type':'application/json','X-CSRF-Token':csrf}, body:JSON.stringify(data)})).json(); },
+  async upload(file, csrf) {
+    const fd = new FormData();
+    fd.append('file', file);
+    fd.append('_csrf', csrf);
+    return (await fetch('/api/upload', {method:'POST', headers:{'X-CSRF-Token':csrf}, body:fd})).json();
+  },
+  async listBackups(name) { return (await fetch('/api/backups/' + name)).json(); },
+  async restore(name, file, csrf) { return (await fetch('/api/restore/' + name, {method:'POST', headers:{'Content-Type':'application/json','X-CSRF-Token':csrf}, body:JSON.stringify({file})})).json(); },
+  async changePassword(oldP, newP, csrf) { return (await fetch('/api/account/password', {method:'POST', headers:{'Content-Type':'application/json','X-CSRF-Token':csrf}, body:JSON.stringify({oldPassword:oldP,newPassword:newP})})).json(); }
+};
+
+function useToast() {
+  const [toast, setToast] = useState(null);
+  const show = useCallback((msg, type='ok') => {
+    setToast({msg, type});
+    setTimeout(() => setToast(null), 3000);
+  }, []);
+  return [toast, show];
+}
+
+function Toast({toast}) {
+  if (!toast) return null;
+  return h('div', {className: 'toast ' + (toast.type === 'error' ? 'error' : '')}, toast.msg);
+}
+
+function Login({onAuth}) {
+  const [u, setU] = useState('admin');
+  const [p, setP] = useState('');
+  const [err, setErr] = useState('');
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setErr('');
+    const r = await api.login(u, p);
+    if (r.ok) onAuth(r.csrf);
+    else setErr(r.error || 'Invalid credentials');
+  };
+  return h('div', {className: 'login-wrap'},
+    h('form', {className: 'login-card', onSubmit},
+      h('div', {className: 'brand'}, 'Jungle. CMS'),
+      h('label', {className: 'label'}, 'Username'),
+      h('input', {value: u, onChange: e => setU(e.target.value), autoFocus: true, required: true}),
+      h('label', {className: 'label'}, 'Password'),
+      h('input', {type: 'password', value: p, onChange: e => setP(e.target.value), required: true}),
+      err && h('div', {className: 'err'}, err),
+      h('button', {type: 'submit', className: 'btn primary'}, 'Sign in'),
+      h('div', {className: 'hint'}, 'Default credentials: admin / admin')
+    )
+  );
+}
+
+function F({label, help, children}) {
+  return h('div', {className: 'field'},
+    label && h('label', {className: 'field-label'}, label),
+    children,
+    help && h('div', {className: 'field-help'}, help)
+  );
+}
+
+function FieldRenderer({schema, value, onChange, onPickMedia}) {
+  if (!schema) return null;
+  if (schema.type === 'text') return h(F, {label: schema.label, help: schema.help}, h('textarea', {className: 'field-textarea' + (schema.tall ? ' tall' : ''), value: value || '', onChange: e => onChange(e.target.value)}));
+  if (schema.type === 'string') return h(F, {label: schema.label, help: schema.help}, h('input', {className: 'field-input', value: value || '', onChange: e => onChange(e.target.value)}));
+  if (schema.type === 'slug') return h(F, {label: schema.label, help: schema.help}, h('input', {className: 'field-input', value: value || '', onChange: e => onChange(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-'))}));
+  if (schema.type === 'boolean') return h(F, {label: schema.label, help: schema.help},
+    h('label', {style: {display: 'flex', alignItems: 'center', gap: 8, padding: '8px 0', cursor: 'pointer'}},
+      h('input', {type: 'checkbox', checked: !!value, onChange: e => onChange(e.target.checked)}),
+      h('span', null, value ? 'Enabled' : 'Disabled')
+    )
+  );
+  if (schema.type === 'image') return h(F, {label: schema.label, help: schema.help},
+    h('div', {className: 'media-row'},
+      h('div', {className: 'media-thumb', style: {backgroundImage: value ? 'url(' + value + ')' : 'none'}}),
+      h('input', {className: 'field-input', value: value || '', onChange: e => onChange(e.target.value), placeholder: 'uploads/...'}),
+      h('button', {type: 'button', className: 'btn sm', onClick: () => onPickMedia(onChange)}, 'Pick'),
+      value && h('button', {type: 'button', className: 'btn sm', onClick: () => onChange('')}, 'Clear')
+    )
+  );
+
+  if (schema.type === 'object') {
+    return h('div', {className: 'section'},
+      schema.label && h('h3', null, schema.label),
+      schema.fields.map((f, i) => h(FieldRenderer, {key: i, schema: f, value: (value || {})[f.key], onChange: v => onChange({...value, [f.key]: v}), onPickMedia}))
+    );
+  }
+
+  if (schema.type === 'list') {
+    const items = Array.isArray(value) ? value : [];
+    const setItem = (i, v) => { const next = items.slice(); next[i] = v; onChange(next); };
+    const removeItem = (i) => { const next = items.slice(); next.splice(i, 1); onChange(next); };
+    const addItem = () => {
+      const blank = {};
+      schema.fields.forEach(f => { blank[f.key] = (f.type === 'list' || f.type === 'object') ? (f.type === 'list' ? [] : {}) : (f.type === 'boolean' ? false : ''); });
+      onChange([...items, blank]);
+    };
+    const title = (item) => {
+      if (schema.summary) return schema.summary(item);
+      const first = schema.fields[0];
+      return item[first.key] || 'Item';
+    };
+    return h('div', {className: 'section'},
+      schema.label && h('h3', null, schema.label),
+      items.map((item, i) => h('div', {className: 'list-item', key: i},
+        h('div', {className: 'item-head'},
+          h('span', {className: 'item-title'}, title(item)),
+          h('button', {type: 'button', className: 'btn sm danger', onClick: () => removeItem(i)}, 'Remove')
+        ),
+        schema.fields.map((f, j) => h(FieldRenderer, {key: j, schema: f, value: item[f.key], onChange: v => setItem(i, {...item, [f.key]: v}), onPickMedia}))
+      )),
+      h('button', {type: 'button', className: 'add-item', onClick: addItem}, '+ ' + (schema.addLabel || 'Add item'))
+    );
+  }
+  return null;
+}
+
+function Editor({title, data, schema, onSave, onPickMedia}) {
+  const [val, setVal] = useState(data);
+  const [dirty, setDirty] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => { setVal(data); setDirty(false); }, [JSON.stringify(data)]);
+  const onChange = (v) => { setVal(v); setDirty(true); };
+
+  const save = async () => {
+    setSaving(true);
+    const r = await onSave(val);
+    if (r.ok) setDirty(false);
+    setSaving(false);
+  };
+
+  return h('div', null,
+    h('div', {className: 'main-head'},
+      h('div', {style: {display: 'flex', alignItems: 'center'}},
+        h('h1', null, title),
+        dirty && h('span', {className: 'dirty', style: {marginLeft: 12}}, '• unsaved changes')
+      ),
+      h('button', {className: 'btn primary', onClick: save, disabled: saving || !dirty}, saving ? 'Saving...' : 'Save')
+    ),
+    h('div', {className: 'editor'},
+      h(FieldRenderer, {schema, value: val, onChange, onPickMedia})
+    )
+  );
+}
+
+const SCHEMAS = {
+  site: {
+    type: 'object',
+    fields: [
+      {key: 'siteName', label: 'Site Name', type: 'string'},
+      {key: 'tagline', label: 'Tagline', type: 'string'},
+      {key: 'logo', label: 'Logos', type: 'object', fields: [
+        {key: 'header', label: 'Header Logo', type: 'image'},
+        {key: 'jMark', label: 'Footer J Mark', type: 'image'},
+        {key: 'loader', label: 'Loader Mark', type: 'image'}
+      ]},
+      {key: 'nav', label: 'Navigation Menu', type: 'list', summary: i => i.label, addLabel: 'Add Nav Item', fields: [
+        {key: 'label', label: 'Label', type: 'string'},
+        {key: 'href', label: 'Link', type: 'string'}
+      ]},
+      {key: 'footer', label: 'Footer Settings', type: 'object', fields: [
+        {key: 'letsTalkLabel', label: 'Big "Let’s Talk" Label', type: 'string'},
+        {key: 'letsTalkHref', label: 'Big Label Link', type: 'string'},
+        {key: 'officeHeading', label: 'Office Heading', type: 'string'},
+        {key: 'officeAddress', label: 'Office Address', type: 'text'},
+        {key: 'copyright', label: 'Copyright Text', type: 'string'},
+        {key: 'contactHeading', label: 'Contact Heading', type: 'string'},
+        {key: 'phone', label: 'Phone', type: 'string'},
+        {key: 'email', label: 'Email', type: 'string'},
+        {key: 'followHeading', label: 'Follow Heading', type: 'string'},
+        {key: 'socials', label: 'Social Links', type: 'list', summary: i => i.label, addLabel: 'Add Social', fields: [
+          {key: 'label', label: 'Label', type: 'string'},
+          {key: 'href', label: 'URL', type: 'string'}
+        ]}
+      ]},
+      {key: 'theme', label: 'Theme Settings', type: 'object', fields: [
+        {key: 'defaultDark', label: 'Default to Dark Mode', type: 'boolean'}
+      ]}
+    ]
+  },
+  home: {
+    type: 'object',
+    fields: [
+      {key: 'hero', label: 'Hero Section', type: 'object', fields: [
+        {key: 'years', label: 'Years Label', type: 'string'},
+        {key: 'selectedLabel', label: 'Selected Label', type: 'string'},
+        {key: 'workLabel', label: 'Work Label', type: 'string'},
+        {key: 'count', label: 'Count Badge', type: 'string'},
+        {key: 'headlinePrefix', label: 'Headline Prefix', type: 'string'},
+        {key: 'headlineSuffix', label: 'Headline Suffix', type: 'string'}
+      ]},
+      {key: 'space', label: 'The Space Section', type: 'object', fields: [
+        {key: 'verticalLabel', label: 'Vertical Label', type: 'string'},
+        {key: 'titleA', label: 'Title A', type: 'string'},
+        {key: 'titleB', label: 'Title B', type: 'string'},
+        {key: 'paragraph', label: 'Description', type: 'text', tall: true},
+        {key: 'images', label: 'Section Images', type: 'object', fields: [
+          {key: 'hero', label: 'Wide Hero Image', type: 'image'},
+          {key: 'a', label: 'Image A', type: 'image'},
+          {key: 'b', label: 'Image B', type: 'image'},
+          {key: 'c', label: 'Image C', type: 'image'}
+        ]}
+      ]},
+      {key: 'about', label: 'About Band', type: 'object', fields: [
+        {key: 'paragraph', label: 'Paragraph', type: 'text', tall: true}
+      ]},
+      {key: 'services', label: 'Services (W.I.L.D)', type: 'object', fields: [
+        {key: 'heading', label: 'Section Heading', type: 'string'}
+      ]},
+      {key: 'clients', label: 'Clients Section', type: 'object', fields: [
+        {key: 'show', label: 'Show Clients', type: 'boolean'},
+        {key: 'heading', label: 'Heading', type: 'string'}
+      ]}
+    ]
+  },
+  about: {
+    type: 'object',
+    fields: [
+      {key: 'intro', label: 'Intro Section', type: 'object', fields: [
+        {key: 'label', label: 'Label', type: 'string'},
+        {key: 'paragraph', label: 'Paragraph', type: 'text', tall: true}
+      ]},
+      {key: 'story', label: 'Our Story', type: 'object', fields: [
+        {key: 'label', label: 'Label', type: 'string'}
+      ]},
+      {key: 'facts', label: 'Short Facts', type: 'object', fields: [
+        {key: 'label', label: 'Label', type: 'string'},
+        {key: 'items', label: 'Facts List', type: 'list', summary: i => i.key, addLabel: 'Add Fact', fields: [
+          {key: 'key', label: 'Key', type: 'string'},
+          {key: 'value', label: 'Value', type: 'string'}
+        ]}
+      ]},
+      {key: 'studio', label: 'Our Studio', type: 'object', fields: [
+        {key: 'label', label: 'Label', type: 'string'},
+        {key: 'heading', label: 'Heading', type: 'string'},
+        {key: 'paragraph', label: 'Paragraph', type: 'text'}
+      ]}
+    ]
+  },
+  contact: {
+    type: 'object',
+    fields: [
+      {key: 'label', label: 'Page Label', type: 'string'},
+      {key: 'heroHeadline', label: 'Hero Headline', type: 'string'},
+      {key: 'sub', label: 'Subheading', type: 'string'},
+      {key: 'office', label: 'Office', type: 'object', fields: [
+        {key: 'label', label: 'Label', type: 'string'},
+        {key: 'companyName', label: 'Company Name', type: 'string'},
+        {key: 'address', label: 'Address', type: 'text'},
+        {key: 'phone', label: 'Phone', type: 'string'},
+        {key: 'email', label: 'Email', type: 'string'}
+      ]},
+      {key: 'join', label: 'Join The Team', type: 'object', fields: [
+        {key: 'label', label: 'Label', type: 'string'},
+        {key: 'email', label: 'Email', type: 'string'},
+        {key: 'note', label: 'Note', type: 'string'}
+      ]}
+    ]
+  },
+  projects: {
+    type: 'object',
+    fields: [
+      {key: 'projects', label: 'Work Collection', type: 'list', summary: p => (p.no || '?') + ' — ' + (p.name || 'Untitled'), addLabel: 'Add Project', fields: [
+        {key: 'no', label: 'Project Number', type: 'string', help: 'e.g. 01'},
+        {key: 'name', label: 'Project Name', type: 'string'},
+        {key: 'slug', label: 'URL Slug', type: 'slug'},
+        {key: 'tags', label: 'Tile Subtitle', type: 'string'},
+        {key: 'thumb', label: 'Homepage Tile Image', type: 'image'},
+        {key: 'video', label: 'Tile Video URL (Optional)', type: 'string'},
+
+        // EXCLUSIVE WORK SECTION FIELDS
+        {key: 'workDescription', label: '★ Work Section Exclusive Description', type: 'text', tall: true, help: 'Description displayed exclusively inside the Work section drawer when clicked.'},
+        {key: 'workDetails', label: '★ Work Section Exclusive Specs List', type: 'list', summary: d => d.label + ': ' + d.value, addLabel: 'Add Spec Detail', fields: [
+          {key: 'label', label: 'Spec Label', type: 'string', help: 'e.g. Deliverables, Timeline, Location'},
+          {key: 'value', label: 'Spec Value', type: 'string'}
+        ]},
+
+        // CASE STUDY PAGE FIELDS
+        {key: 'client', label: 'Client', type: 'string'},
+        {key: 'year', label: 'Year', type: 'string'},
+        {key: 'scope', label: 'Scope', type: 'string'},
+        {key: 'role', label: 'Our Role', type: 'string'},
+        {key: 'lede', label: 'Case Study Summary (Lede)', type: 'text'},
+        {key: 'challenge', label: 'The Challenge', type: 'text', tall: true},
+        {key: 'approach', label: 'Our Approach', type: 'text', tall: true},
+        {key: 'heroImage', label: 'Hero Image', type: 'image'},
+        {key: 'imageA', label: 'Detail Image A', type: 'image'},
+        {key: 'imageB', label: 'Detail Image B', type: 'image'},
+        {key: 'imageC', label: 'Wide Image C', type: 'image'},
+        {key: 'quote', label: 'Client Quote', type: 'text'},
+        {key: 'quoteBy', label: 'Quote Attribution', type: 'string'},
+        {key: 'results', label: 'Results', type: 'list', summary: r => r.figure + ' — ' + r.label, addLabel: 'Add Result', fields: [
+          {key: 'figure', label: 'Figure', type: 'string'},
+          {key: 'label', label: 'Description', type: 'string'}
+        ]}
+      ]}
+    ]
+  }
+};
+
+function App() {
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [view, setView] = useState('projects');
+  const [data, setData] = useState({});
+  const [toast, showToast] = useToast();
+  const [picker, setPicker] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const s = await api.getSession();
+      if (s.user) {
+        setSession(s);
+        const all = await api.getAll();
+        setData(all.data);
+      }
+      setLoading(false);
+    })();
+  }, []);
+
+  const onAuth = async () => {
+    const s = await api.getSession();
+    setSession(s);
+    const all = await api.getAll();
+    setData(all.data);
+  };
+
+  const saveData = async (name, value) => {
+    const r = await api.save(name, value, session.csrf);
+    if (r.ok) {
+      const all = await api.getAll();
+      setData(all.data);
+      showToast('Saved successfully');
+    } else {
+      showToast(r.error || 'Save failed', 'error');
+    }
+    return r;
+  };
+
+  if (loading) return h('div', {className: 'empty'}, h('p', null, 'Loading CMS...'));
+  if (!session) return h(Login, {onAuth});
+
+  const nav = [
+    {id: 'projects', label: 'Projects / Work', icon: '※'},
+    {id: 'site', label: 'Site Settings', icon: '⚙'},
+    {id: 'home', label: 'Homepage', icon: '⌂'},
+    {id: 'about', label: 'About Page', icon: 'ⓘ'},
+    {id: 'contact', label: 'Contact Page', icon: '✉'}
+  ];
+
+  return h('div', {className: 'app'},
+    h('aside', {className: 'sidebar'},
+      h('div', {className: 'brand'}, 'Jungle. CMS'),
+      h('nav', null,
+        h('div', {className: 'group-label'}, 'Manage Content'),
+        nav.map(n => h('div', {key: n.id, className: 'item' + (view === n.id ? ' active' : ''), onClick: () => setView(n.id)},
+          h('span', {className: 'icon'}, n.icon), h('span', null, n.label)
+        ))
+      ),
+      h('div', {className: 'user'},
+        h('span', null, 'Logged in'),
+        h('button', {onClick: () => api.logout().then(() => setSession(null))}, 'Sign out')
+      )
+    ),
+    h('main', {className: 'main'},
+      SCHEMAS[view] && data[view] ? h(Editor, {
+        title: nav.find(n => n.id === view).label,
+        data: data[view],
+        schema: SCHEMAS[view],
+        onSave: v => saveData(view, v),
+        onPickMedia: setPicker
+      }) : h('div', {className: 'empty'}, h('p', null, 'Select a section'))
+    ),
+    picker && h('div', {className: 'media-picker-overlay', onClick: () => setPicker(null)},
+      h('div', {className: 'media-picker', onClick: e => e.stopPropagation()},
+        h('h2', null, 'Upload / Set Media'),
+        h('input', {type: 'file', accept: 'image/*,video/*', onChange: async e => {
+          const f = e.target.files[0];
+          if (f) {
+            const r = await api.upload(f, session.csrf);
+            if (r.ok) { picker(r.path); setPicker(null); }
+          }
+        }}),
+        h('div', {style: {marginTop: 14, textAlign: 'right'}},
+          h('button', {className: 'btn sm', onClick: () => setPicker(null)}, 'Close')
+        )
+      )
+    ),
+    h(Toast, {toast})
+  );
+}
+
+createRoot(document.getElementById('root')).render(h(App));
+</script>
+</body>
+</html>

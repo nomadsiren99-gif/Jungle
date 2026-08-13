@@ -1,0 +1,85 @@
+{
+  "hero": {
+    "years": "2019 — 26",
+    "selectedLabel": "Selected",
+    "workLabel": "work",
+    "count": "08",
+    "headlinePrefix": "We design",
+    "headlineSuffix": "brands.",
+    "rotatingWords": ["meaningful", "untamed", "lasting", "fearless"]
+  },
+  "space": {
+    "verticalLabel": "Lalitpur",
+    "titleA": "The",
+    "titleB": "space",
+    "paragraph": "A room full of paper, prints and half-finished ideas. Most of what we make starts on the wall before it ever reaches a screen.",
+    "images": {
+      "hero": "demo/space-hero.png",
+      "a": "demo/space-a.png",
+      "b": "demo/space-b.png",
+      "c": "demo/space-c.png"
+    }
+  },
+  "about": {
+    "paragraph": "Jungle is an ecosystem of design and strategy. We help businesses bring clarity to their ideas and turn them into brands with purpose, character, and lasting value.",
+    "links": [
+      { "label": "Our approach", "href": "#services" },
+      { "label": "What we do", "href": "#services" }
+    ]
+  },
+  "services": {
+    "heading": "Explore our branding and design services",
+    "items": [
+      {
+        "letter": "W",
+        "title": "Wonder",
+        "items": [
+          "Brand audit",
+          "Brand and design benchmark",
+          "Market research and consumer intelligence"
+        ]
+      },
+      {
+        "letter": "I",
+        "title": "Identity",
+        "items": [
+          "Naming and tagline",
+          "Brand identity and brand core",
+          "Brand narrative and voice"
+        ]
+      },
+      {
+        "letter": "L",
+        "title": "Launch",
+        "items": [
+          "Brand launch",
+          "Brand activation",
+          "Digital brand environments"
+        ]
+      },
+      {
+        "letter": "D",
+        "title": "Drive",
+        "items": [
+          "Brand management",
+          "Content strategy",
+          "Design retainer"
+        ]
+      }
+    ]
+  },
+  "clients": {
+    "show": true,
+    "heading": "Our clients",
+    "names": [
+      "Himalayan Java",
+      "Sherpa Brewery",
+      "Yeti Airlines",
+      "NIC Asia",
+      "Daraz",
+      "Goldstar",
+      "Khalti",
+      "Tootle"
+    ]
+  }
+}

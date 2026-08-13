@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script src="./data/site.js"></script>
+<script src="./data/home.js"></script>
+<script src="./data/projects.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  html,body{margin:0;padding:0;background:#fff;color:#0a0a0a;font-family:'Archivo',sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  a:hover{opacity:.55}
+  ::selection{background:#0a0a0a;color:#fff}
+  @keyframes jg-fade{from{opacity:0;transform:translateY(.45em)}to{opacity:1;transform:none}}
+  html{scroll-behavior:smooth}
+  @keyframes jg-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes jg-in{from{opacity:0}to{opacity:1}}
+  header{animation:jg-in .8s ease both}
+  header nav a{position:relative}
+  header nav a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,1,.3,1)}
+  header nav a:hover::after{transform:scaleX(1)}
+  header nav a:hover{opacity:1}
+  header button{transition:transform .5s cubic-bezier(.16,1,.3,1),background .3s ease,color .3s ease}
+  header button:hover{transform:rotate(-18deg) scale(1.06)}
+  header>div>div span{transition:transform .35s cubic-bezier(.16,1,.3,1),width .35s ease}
+  header>div>div:hover span:nth-child(2){width:20px!important}
+  footer>a{display:inline-block;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .4s ease}
+  footer>a:hover{transform:translateX(-14px);opacity:1}
+  footer a,section a{transition:opacity .3s ease}
+  #top>div>div,#top h1{animation:jg-up 1s cubic-bezier(.16,1,.3,1) both}
+  #top h1{animation-delay:.12s}
+  #top>div:last-of-type{animation:jg-in 1.2s ease .4s both}
+  #work>div.work-grid>*>div:first-child{transition:transform .9s cubic-bezier(.16,1,.3,1)}
+  #work>div.work-grid>*:hover>div:first-child{transform:scale(1.03)}
+  #work>div.work-grid>*>div:last-child{transition:transform .6s cubic-bezier(.16,1,.3,1)}
+  #work>div.work-grid>*:hover>div:last-child{transform:translateX(8px)}
+  #services>div>div{transition:background .6s ease}
+  #services>div>div:hover{background:rgba(255,255,255,.03)}
+  #work>div.work-grid>*:nth-child(4n+1),#work>div.work-grid>*:nth-child(4n){grid-column:span 4}
+  #work>div.work-grid>*:nth-child(4n+2),#work>div.work-grid>*:nth-child(4n+3){grid-column:span 2}
+  #work>div.work-grid>*:nth-child(4n+1)>div:first-child,#work>div.work-grid>*:nth-child(4n)>div:first-child{aspect-ratio:16/10}
+  #work>div.work-grid>*:nth-child(4n+2)>div:first-child,#work>div.work-grid>*:nth-child(4n+3)>div:first-child{aspect-ratio:3/4}
+  #space>div>div{transition:transform 1s cubic-bezier(.16,1,.3,1)}
+  #space>div>div:hover{transform:translateY(-6px)}
+
+  html[data-theme="dark"],html[data-theme="dark"] body{background:#0a0a0a!important;color:#fff!important}
+  html[data-theme="dark"] header{background:rgba(10,10,10,.94)!important}
+  html[data-theme="dark"] header img,html[data-theme="dark"] footer img{filter:invert(1)}
+  html[data-theme="dark"] header span[style*="background:#0a0a0a"]{background:#fff!important}
+  html[data-theme="dark"] header button{color:#fff!important;border-color:#fff!important}
+  html[data-theme="dark"] section,html[data-theme="dark"] footer{background:#0a0a0a!important;color:#fff!important;border-color:#2a2a2a!important}
+  html[data-theme="dark"] section[id="services"]{background:#141414!important}
+  html[data-theme="dark"] div[style*="background:#f2f2f0"]{background:#1c1c1c!important}
+  html[data-theme="dark"] span[style*="background:#0a0a0a"]{background:#fff!important}
+  html[data-theme="dark"] a[style*="border-bottom:2px solid #0a0a0a"]{border-color:#fff!important}
+  html[data-theme="dark"] [style*="color:#0a0a0a"]{color:#fff!important}
+  html[data-theme="dark"] [style*="color:#555"],html[data-theme="dark"] [style*="color:#444"],html[data-theme="dark"] [style*="color:#333"],html[data-theme="dark"] [style*="color:#666"]{color:#a8a8a8!important}
+  html[data-theme="dark"] [style*="color:#ccc"],html[data-theme="dark"] [style*="color:#bbb"]{color:#4a4a4a!important}
+  html[data-theme="dark"] [style*="color:#5a5a5a"],html[data-theme="dark"] [style*="color:#8a8a8a"],html[data-theme="dark"] [style*="color:#9a9a9a"]{color:#8f8f8f!important}
+  html[data-theme="dark"] [style*="color:#b4b4b4"],html[data-theme="dark"] [style*="color:#c4c4c4"]{color:#5c5c5c!important}
+  html[data-theme="dark"] div[style*="background:#f2f2f0"]{background:#181818!important}
+  html[data-theme="dark"] .work-drawer-card{background:#141414!important;color:#fff!important;border-color:#2a2a2a!important}
+
+  @media (max-width:820px){
+    header{padding:16px 20px!important;gap:12px!important}
+    header>div{gap:14px!important}
+    header nav{gap:18px!important;font-size:15px!important}
+    header img{height:26px!important}
+    header button{padding:6px 10px!important;font-size:11px!important}
+    #top{padding:8px 20px 40px!important}
+    #top>div:first-of-type{gap:40px!important;padding:8px 0 40px!important;font-size:17px!important}
+    #top>div{grid-template-columns:1fr!important;gap:16px!important}
+    #top h1{font-size:44px!important;text-align:left!important}
+    #top>div:last-of-type{margin-top:48px!important}
+    #top span[style*="padding-left"]{padding-left:0!important}
+    #top>div:last-of-type>div{justify-content:flex-start!important}
+    #work{padding:0 20px 48px!important}
+    #work>div.work-grid{grid-template-columns:1fr!important;gap:32px!important}
+    #work>div.work-grid>*{grid-column:auto!important}
+    #work>div.work-grid>*>div:first-child{aspect-ratio:4/3!important}
+    #space{padding:56px 20px 64px!important}
+    #space>div:first-child{grid-template-columns:1fr!important;gap:20px!important}
+    #space>div:first-child p{font-size:17px!important}
+    #space>div[style*="56vh"]{height:38vh!important;min-height:240px!important}
+    #space>div:last-child{grid-template-columns:1fr!important}
+    #about{padding:56px 20px!important}
+    #about p{font-size:24px!important}
+    #about>div{flex-wrap:wrap!important;gap:20px!important}
+    #services{padding:56px 20px 40px!important}
+    #services h2{margin-bottom:40px!important;font-size:26px!important}
+    #services>div{flex-direction:column!important}
+    #services>div>div{flex:none!important;min-height:0!important;padding:24px 0!important;border-left:none!important;border-top:1px solid #3a3a3a!important}
+    #services>div>div:first-child{border-top:none!important}
+    #services ul{opacity:1!important;transform:none!important;min-width:0!important}
+    #services ul li{opacity:1!important;transform:none!important}
+    #services h3{color:#fff!important}
+    #services span{opacity:1!important;font-size:64px!important;margin-top:24px!important}
+    #contact{padding:64px 20px 40px!important}
+    #contact>a{text-align:left!important;font-size:52px!important}
+    #contact>div{grid-template-columns:1fr!important;gap:36px!important;margin-top:64px!important}
+    #contact p[style*="padding-left"],#contact div[style*="padding-left"]{padding-left:0!important}
+    #contact p[style*="margin:120px"]{margin-top:32px!important}
+    section{padding-left:20px!important;padding-right:20px!important}
+    .work-drawer-body{grid-template-columns:1fr!important}
+  }
+
+  #jg-load{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:#fff;animation:jg-load-out .75s cubic-bezier(.7,0,.2,1) 1.15s forwards}
+  #jg-load img{width:72px;display:block;animation:jg-load-mark 1.05s cubic-bezier(.16,1,.3,1) both}
+  #jg-load span{display:block;height:1px;width:120px;background:#0a0a0a;transform-origin:left;animation:jg-load-rule 1.15s cubic-bezier(.5,0,.2,1) both}
+  @keyframes jg-load-mark{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
+  @keyframes jg-load-rule{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes jg-load-out{to{transform:translateY(-101%)}}
+  html[data-theme="dark"] #jg-load{background:#0a0a0a!important}
+  html[data-theme="dark"] #jg-load img{filter:invert(1)}
+  html[data-theme="dark"] #jg-load span{background:#fff}
+  @media (prefers-reduced-motion:reduce){#jg-load{display:none}}
+</style>
+</helmet>
+
+<div id="jg-load" aria-hidden="true">
+  <img src="{{ site.logo.loader }}" alt="">
+  <span></span>
+</div>
+
+<header style="position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:26px 44px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px)">
+  <a href="#top" style="display:flex;align-items:center"><img src="{{ site.logo.header }}" alt="{{ site.siteName }}" style="height:36px;display:block"></a>
+  <div style="display:flex;align-items:center;gap:44px">
+    <nav style="display:flex;gap:40px;font-size:19px;font-weight:500">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="3">
+        <a href="{{ n.href }}" style="{{ n.style }}">{{ n.label }}</a>
+      </sc-for>
+    </nav>
+    <button onClick="{{ toggleTheme }}" aria-label="Toggle theme" style="display:flex;align-items:center;justify-content:center;width:38px;height:38px;font-family:inherit;color:#0a0a0a;background:none;border:1px solid #0a0a0a;border-radius:999px;cursor:pointer;padding:0">{{ themeIcon }}</button>
+    <div style="display:flex;flex-direction:column;gap:6px;cursor:pointer;padding:4px 0">
+      <span style="display:block;width:30px;height:2.5px;background:#0a0a0a"></span>
+      <span style="display:block;width:30px;height:2.5px;background:#0a0a0a"></span>
+      <span style="display:block;width:30px;height:2.5px;background:#0a0a0a"></span>
+    </div>
+  </div>
+</header>
+
+<section id="top" style="padding:24px 44px 60px">
+  <div style="display:grid;grid-template-columns:260px 1fr;align-items:center;gap:40px;padding-top:60px">
+    <div style="display:flex;align-items:flex-start;gap:16px;white-space:nowrap">
+      <span style="font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a;writing-mode:vertical-rl;transform:rotate(180deg)">{{ home.hero.years }}</span>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:34px;font-weight:500;letter-spacing:-0.03em;line-height:1">{{ home.hero.selectedLabel }}</span>
+        <span style="font-size:34px;font-weight:500;letter-spacing:-0.03em;line-height:1;color:#c4c4c4">{{ home.hero.workLabel }}<span style="font-size:13px;vertical-align:super;color:#9a9a9a">{{ home.hero.count }}</span></span>
+      </div>
+    </div>
+    <h1 style="margin: 0; font-size: clamp(48px,6.4vw,110px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; text-align: left; text-wrap: balance">{{ home.hero.headlinePrefix }}<br>{{ heroWord }} {{ home.hero.headlineSuffix }}</h1>
+  </div>
+</section>
+
+<!-- WORK SECTION WITH EXCLUSIVE INLINE WORK DETAIL DRAWER -->
+<section id="work" style="padding:0 16px 96px;position:relative">
+
+  <sc-if value="{{ activeProject }}">
+  <div class="work-drawer-card" style="margin-bottom:48px;padding:36px 40px;background:#f9f9f7;border:1px solid #e0e0dc;border-radius:12px;position:relative;animation:jg-up .4s cubic-bezier(.16,1,.3,1)">
+    <button onClick="{{ closeDrawer }}" aria-label="Close details" style="position:absolute;top:24px;right:28px;background:none;border:none;font-size:28px;cursor:pointer;line-height:1;color:#8a8a8a">&times;</button>
+    <div style="font-size:12px;font-weight:500;color:#9a9a9a;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px">Work Details &mdash; Exclusive Overview</div>
+    <div class="work-drawer-body" style="display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:start">
+      <div>
+        <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:14px">
+          <span style="font-size:14px;font-weight:500;color:#9a9a9a">{{ activeProject.no }}</span>
+          <h3 style="margin:0;font-size:32px;font-weight:500;letter-spacing:-0.02em">{{ activeProject.name }}</h3>
+        </div>
+        <p style="margin:0 0 20px;font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:.09em;color:#8a8a8a">{{ activeProject.tags }}</p>
+        <p style="margin:0 0 24px;font-size:18px;line-height:1.6;color:#444">{{ activeProject.workDescription }}</p>
+        <a href="project.html?p={{ activeProject.slug }}" style="display:inline-block;padding:12px 24px;background:#0a0a0a;color:#fff;font-size:14px;font-weight:500;border-radius:999px;transition:opacity .2s">View Full Case Study &rarr;</a>
+      </div>
+      <div style="background:#fff;padding:24px;border-radius:8px;border:1px solid #e5e5e0">
+        <h4 style="margin:0 0 16px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:#9a9a9a">Project Specifications</h4>
+        <div style="display:flex;flex-direction:column;gap:14px;font-size:14px">
+          <sc-for list="{{ activeProject.workDetails }}" as="detail" hint-placeholder-count="3">
+            <div style="border-bottom:1px solid #f0f0ec;padding-bottom:8px">
+              <strong style="color:#0a0a0a;display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em">{{ detail.label }}</strong>
+              <span style="color:#666">{{ detail.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <div class="work-grid" style="display:grid;grid-template-columns:repeat(6,1fr);align-items:start;gap:72px 16px">
+    <sc-for list="{{ projects }}" as="p" hint-placeholder-count="8">
+      <div data-reveal="" onClick="{{ p.onSelect }}" style="display:flex;flex-direction:column;gap:16px;cursor:pointer">
+        <div style="background:#f2f2f0;overflow:hidden;position:relative">
+          <image-slot id="{{ p.slot }}" shape="rect" src="{{ p.thumb }}" placeholder="Drop project image"></image-slot>
+          {{ p.videoEl }}
+        </div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;padding-right:8px">
+          <div style="display:flex;align-items:baseline;gap:14px;min-width:0">
+            <span style="font-size:12px;font-weight:500;color:#b4b4b4;letter-spacing:.06em">{{ p.no }}</span>
+            <div style="display:flex;flex-direction:column;gap:3px;min-width:0">
+              <span style="font-size:19px;font-weight:500;letter-spacing:-0.01em">{{ p.name }}</span>
+              <span style="font-size:12px;font-weight:500;color:#8a8a8a;text-transform:uppercase;letter-spacing:.09em">{{ p.tags }}</span>
+            </div>
+          </div>
+          <button style="background:none;border:1px solid #ccc;border-radius:12px;padding:3px 8px;font-size:11px;font-weight:500;color:#555;cursor:pointer">Details</button>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<section id="space" style="padding:96px 44px 104px">
+  <div style="display:grid;grid-template-columns:260px 1fr;align-items:end;gap:40px;margin-bottom:48px">
+    <div style="display:flex;align-items:flex-start;gap:16px;white-space:nowrap">
+      <span style="font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:#9a9a9a;writing-mode:vertical-rl;transform:rotate(180deg)">{{ home.space.verticalLabel }}</span>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:34px;font-weight:500;letter-spacing:-0.03em;line-height:1">{{ home.space.titleA }}</span>
+        <span style="font-size:34px;font-weight:500;letter-spacing:-0.03em;line-height:1;color:#c4c4c4">{{ home.space.titleB }}</span>
+      </div>
+    </div>
+    <p style="margin:0;max-width:560px;font-size:19px;font-weight:400;line-height:1.55;color:#5a5a5a">{{ home.space.paragraph }}</p>
+  </div>
+  <div data-reveal="" style="height:56vh;min-height:380px;background:#f2f2f0;overflow:hidden;margin-bottom:16px">
+    <image-slot id="space-hero" shape="rect" src="{{ home.space.images.hero }}" placeholder="Drop a wide studio photo"></image-slot>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div data-reveal="" style="aspect-ratio:4/5;background:#f2f2f0;overflow:hidden"><image-slot id="space-a" shape="rect" src="{{ home.space.images.a }}" placeholder="Desk / detail"></image-slot></div>
+    <div data-reveal="" style="aspect-ratio:4/5;background:#f2f2f0;overflow:hidden"><image-slot id="space-b" shape="rect" src="{{ home.space.images.b }}" placeholder="Team at work"></image-slot></div>
+    <div data-reveal="" style="aspect-ratio:4/5;background:#f2f2f0;overflow:hidden"><image-slot id="space-c" shape="rect" src="{{ home.space.images.c }}" placeholder="Print / material"></image-slot></div>
+  </div>
+</section>
+
+<section id="about" style="padding:96px 44px;border-bottom:1px solid #e6e6e2">
+  <p data-reveal="" style="margin:0;max-width:1100px;font-size:clamp(26px,3.4vw,44px);font-weight:500;line-height:1.25;letter-spacing:-0.02em;text-wrap:pretty">{{ home.about.paragraph }}</p>
+  <div style="display:flex;gap:36px;margin-top:44px;font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:.08em">
+    <sc-for list="{{ home.about.links }}" as="l" hint-placeholder-count="2">
+      <a href="{{ l.href }}" style="border-bottom:2px solid #0a0a0a;padding-bottom:4px">{{ l.label }}</a>
+    </sc-for>
+  </div>
+</section>
+
+<section id="services" style="padding:80px 44px 64px;background:#111;color:#fff">
+  <h2 style="margin:0 0 72px;font-size:clamp(30px,3.4vw,44px);font-weight:500;letter-spacing:-0.01em;max-width:620px;line-height:1.2">{{ home.services.heading }}</h2>
+  <div style="display:flex;align-items:stretch">
+    <sc-for list="{{ services }}" as="s" hint-placeholder-count="4">
+      <div data-reveal="" onMouseEnter="{{ s.onEnter }}" style="{{ s.colStyle }}">
+        <h3 style="{{ s.titleStyle }}">{{ s.title }}</h3>
+        <ul style="{{ s.listStyle }}">
+          <sc-for list="{{ s.items }}" as="it" hint-placeholder-count="3">
+            <li style="{{ it.style }}">{{ it.text }}</li>
+          </sc-for>
+        </ul>
+        <span style="{{ s.letterStyle }}">{{ s.letter }}</span>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<sc-if value="{{ showClients }}" hint-placeholder-val="{{ true }}">
+<section style="padding:72px 44px;border-bottom:1px solid #e6e6e2">
+  <h2 style="margin:0 0 40px;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.2em;color:#9a9a9a">{{ home.clients.heading }}</h2>
+  <div data-reveal="" style="display:flex;flex-wrap:wrap;gap:16px 40px;font-size:clamp(22px,2.6vw,34px);font-weight:500;letter-spacing:-0.02em">
+    <sc-for list="{{ clients }}" as="c" hint-placeholder-count="8">
+      <span>{{ c.name }}</span><sc-if value="{{ c.sep }}"><span style="color:#ccc">/</span></sc-if>
+    </sc-for>
+  </div>
+</section>
+</sc-if>
+
+<footer id="contact" style="padding:100px 44px 60px;background:#fff;color:#0a0a0a">
+  <a data-reveal="" href="{{ site.footer.letsTalkHref }}" style="display:block;text-align:right;font-size:clamp(64px,10vw,170px);font-weight:500;letter-spacing:-0.03em;line-height:1">{{ site.footer.letsTalkLabel }}</a>
+  <div style="display:grid;grid-template-columns:220px 1fr 1fr 1fr;gap:48px;margin-top:200px;font-size:17px;line-height:1.6">
+    <div><img src="{{ site.logo.jMark }}" alt="{{ site.siteName }}" style="height:64px;display:block"></div>
+    <div>
+      <h3 style="margin:0 0 28px;font-size:19px;font-weight:500">{{ site.footer.officeHeading }}</h3>
+      <p style="margin:0;padding-left:52px;white-space:pre-line">{{ site.footer.officeAddress }}</p>
+      <p style="margin:120px 0 0;font-size:15px">{{ site.footer.copyright }}</p>
+    </div>
+    <div>
+      <h3 style="margin:0 0 28px;font-size:19px;font-weight:500">{{ site.footer.contactHeading }}</h3>
+      <div style="display:flex;flex-direction:column;gap:2px;padding-left:52px">
+        <a href="tel:{{ phoneHref }}">{{ site.footer.phone }}</a>
+        <a href="mailto:{{ site.footer.email }}">{{ site.footer.email }}</a>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin:0 0 28px;font-size:19px;font-weight:500">{{ site.footer.followHeading }}</h3>
+      <div style="display:flex;flex-direction:column;gap:2px;padding-left:52px">
+        <sc-for list="{{ site.footer.socials }}" as="s" hint-placeholder-count="4">
+          <a href="{{ s.href }}">{{ s.label }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;darkMode&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Theme&quot;},&quot;showClients&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+const SUN_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 19.5C3 14 6 5.5 19.5 4.5c1 12-7 15.5-12.5 14"></path><path d="M4.5 19.5C8 16 11.5 12 16 9.5"></path></svg>`;
+const MOON_SVG = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 14.6A8.6 8.6 0 0 1 9.4 3.8a8.6 8.6 0 1 0 10.8 10.8z"></path><path d="M13.4 10.6c1.6-.4 3.1.1 4.1 1.2"></path></svg>`;
+
+const PROJECTS_URL = 'data/projects.json';
+const SITE_URL = 'data/site.json';
+const HOME_URL = 'data/home.json';
+
+const SITE_DEFAULTS = {
+  siteName: 'Jungle.',
+  logo: { header: 'assets/logo-black.svg', jMark: 'assets/j-black.svg', loader: 'assets/j-black.svg' },
+  nav: [
+    { label: 'Work', href: 'index.html#work' },
+    { label: 'About', href: 'about.html' },
+    { label: 'Contact', href: 'contact.html' }
+  ],
+  footer: {
+    letsTalkLabel: 'Let\u2019s talk',
+    letsTalkHref: 'mailto:hello@jungle.com.np',
+    officeHeading: 'Office',
+    officeAddress: 'Jhamsikhel, Lalitpur,\nKathmandu Valley, Nepal',
+    copyright: '\u00a9 2019 - 2026 Jungle Agency',
+    contactHeading: 'Contact',
+    phone: '+977 1 552 0000',
+    email: 'hello@jungle.com.np',
+    followHeading: 'Follow',
+    socials: [
+      { label: 'Instagram', href: '#' },
+      { label: 'Facebook', href: '#' },
+      { label: 'Behance', href: '#' },
+      { label: 'LinkedIn', href: '#' }
+    ]
+  },
+  theme: { defaultDark: false }
+};
+
+const HOME_DEFAULTS = {
+  hero: {
+    years: '2019 \u2014 26', selectedLabel: 'Selected', workLabel: 'work', count: '08',
+    headlinePrefix: 'We design', headlineSuffix: 'brands.',
+    rotatingWords: ['meaningful', 'untamed', 'lasting', 'fearless']
+  },
+  space: {
+    verticalLabel: 'Lalitpur', titleA: 'The', titleB: 'space',
+    paragraph: 'A room full of paper, prints and half-finished ideas. Most of what we make starts on the wall before it ever reaches a screen.',
+    images: { hero: 'demo/space-hero.png', a: 'demo/space-a.png', b: 'demo/space-b.png', c: 'demo/space-c.png' }
+  },
+  about: {
+    paragraph: 'Jungle is an ecosystem of design and strategy. We help businesses bring clarity to their ideas and turn them into brands with purpose, character, and lasting value.',
+    links: [ { label: 'Our approach', href: '#services' }, { label: 'What we do', href: '#services' } ]
+  },
+  services: {
+    heading: 'Explore our branding and design services',
+    items: [
+      { letter: 'W', title: 'Wonder', items: ['Brand audit', 'Brand and design benchmark', 'Market research and consumer intelligence'] },
+      { letter: 'I', title: 'Identity', items: ['Naming and tagline', 'Brand identity and brand core', 'Brand narrative and voice'] },
+      { letter: 'L', title: 'Launch', items: ['Brand launch', 'Brand activation', 'Digital brand environments'] },
+      { letter: 'D', title: 'Drive', items: ['Brand management', 'Content strategy', 'Design retainer'] }
+    ]
+  },
+  clients: {
+    show: true, heading: 'Our clients',
+    names: ['Himalayan Java', 'Sherpa Brewery', 'Yeti Airlines', 'NIC Asia', 'Daraz', 'Goldstar', 'Khalti', 'Tootle']
+  }
+};
+
+class Component extends DCLogic {
+  state = { wi: 0, active: 0, activeProject: null, dark: null, videoFail: {}, projects: [], site: null, home: null };
+  isDark() {
+    if (this.state.dark != null) return this.state.dark;
+    try { const v = localStorage.getItem('jungle-dark'); if (v != null) return v === '1'; } catch (e) {}
+    const site = this.state.site || SITE_DEFAULTS;
+    const def = site.theme && site.theme.defaultDark != null ? site.theme.defaultDark : null;
+    return def != null ? def : (this.props.darkMode ?? false);
+  }
+  toggleTheme = () => {
+    const next = !this.isDark();
+    try { localStorage.setItem('jungle-dark', next ? '1' : '0'); } catch (e) {}
+    this.setState({ dark: next });
+  };
+  applyTheme() {
+    const dark = this.isDark();
+    document.documentElement.style.filter = '';
+    document.querySelectorAll('image-slot').forEach(el => { el.style.filter = ''; });
+    if (dark) document.documentElement.setAttribute('data-theme', 'dark');
+    else document.documentElement.removeAttribute('data-theme');
+  }
+  componentDidUpdate() { this.applyTheme(); }
+  componentDidMount() {
+    this.applyTheme();
+    fetch(PROJECTS_URL, { cache: 'no-cache' })
+      .then(r => r.json())
+      .then(d => this.setState({ projects: (d && d.projects) || (window.JUNGLE_PROJECTS && window.JUNGLE_PROJECTS.projects) || [] }))
+      .catch(e => {
+        if (window.JUNGLE_PROJECTS) this.setState({ projects: window.JUNGLE_PROJECTS.projects || [] });
+      });
+    fetch(SITE_URL, { cache: 'no-cache' })
+      .then(r => r.json())
+      .then(d => this.setState({ site: d || window.JUNGLE_SITE || {} }))
+      .catch(e => {
+        if (window.JUNGLE_SITE) this.setState({ site: window.JUNGLE_SITE });
+      });
+    fetch(HOME_URL, { cache: 'no-cache' })
+      .then(r => r.json())
+      .then(d => this.setState({ home: d || window.JUNGLE_HOME || {} }))
+      .catch(e => {
+        if (window.JUNGLE_HOME) this.setState({ home: window.JUNGLE_HOME });
+      });
+    const words = () => (this.state.home || window.JUNGLE_HOME || HOME_DEFAULTS).hero.rotatingWords || [];
+    this._t = setInterval(() => this.setState(s => ({ wi: (s.wi + 1) % Math.max(1, words().length) })), 2600);
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    els.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(28px)';
+      el.style.transition = 'opacity .8s cubic-bezier(.2,.6,.2,1), transform .8s cubic-bezier(.2,.6,.2,1)';
+    });
+    this._io = new IntersectionObserver(entries => {
+      let i = 0;
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        el.style.transitionDelay = (i++ * 90) + 'ms';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+        this._io.unobserve(el);
+      });
+    }, { threshold: 0.15 });
+    els.forEach(el => this._io.observe(el));
+  }
+  componentWillUnmount() {
+    clearInterval(this._t);
+    if (this._io) this._io.disconnect();
+  }
+  renderVals() {
+    const site = this.state.site || SITE_DEFAULTS;
+    const home = this.state.home || HOME_DEFAULTS;
+    const hero = home.hero || HOME_DEFAULTS.hero;
+    const words = hero.rotatingWords && hero.rotatingWords.length ? hero.rotatingWords : HOME_DEFAULTS.hero.rotatingWords;
+    const navSrc = site.nav && site.nav.length ? site.nav : SITE_DEFAULTS.nav;
+    const page = (location.pathname.split('/').pop() || 'index.html').replace(/\.html$/, '') || 'index';
+    const here = page === 'index';
+    const phoneHref = String(site.footer && site.footer.phone || SITE_DEFAULTS.footer.phone).replace(/[^\d+]/g, '');
+    const clients = (home.clients && home.clients.names) || HOME_DEFAULTS.clients.names;
+    const servicesRaw = (home.services && home.services.items) || HOME_DEFAULTS.services.items;
+    return {
+      site: site,
+      home: home,
+      heroWord: React.createElement('span', {
+        key: this.state.wi,
+        style: { display: 'inline-block', animation: 'jg-fade .6s cubic-bezier(.2,.6,.2,1)' }
+      }, words[this.state.wi % words.length]),
+      toggleTheme: this.toggleTheme,
+      themeIcon: React.createElement('span', {dangerouslySetInnerHTML:{__html: this.isDark() ? SUN_SVG : MOON_SVG}, style:{display:'flex'}}),
+      showClients: home.clients ? (home.clients.show ?? true) : true,
+      phoneHref: phoneHref,
+      activeProject: this.state.activeProject,
+      closeDrawer: () => this.setState({ activeProject: null }),
+      navItems: navSrc.map((n, i) => {
+        let href = n.href;
+        if (here && href === 'index.html#work') href = '#work';
+        return Object.assign({}, n, { href: href, style: { color: i === 0 ? '#9a9a9a' : '' } });
+      }),
+      projects: (this.state.projects || []).map((p, i) => {
+        const item = {
+          slot: 'w' + (i + 1),
+          no: p.no || String(i + 1).padStart(2, '0'),
+          slug: p.slug,
+          name: p.name,
+          tags: p.tags || p.scope || '',
+          thumb: p.thumb || ('demo/' + p.slug + '.png'),
+          placeholder: 'Drop project image',
+          video: p.video,
+          workDescription: p.workDescription || p.lede || '',
+          workDetails: p.workDetails || [
+            { label: 'Client', value: p.client || 'N/A' },
+            { label: 'Scope', value: p.scope || 'N/A' },
+            { label: 'Year', value: p.year || 'N/A' }
+          ]
+        };
+        const video = p.video;
+        const ok = !!video && !this.state.videoFail[item.slot];
+        return Object.assign({}, item, {
+          onSelect: () => {
+            this.setState({ activeProject: item });
+            const section = document.getElementById('work');
+            if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          },
+          videoEl: ok ? React.createElement('video', {
+            src: video, poster: item.thumb,
+            autoPlay: true, muted: true, loop: true, playsInline: true,
+            onError: () => this.setState(s => ({ videoFail: Object.assign({}, s.videoFail, { [item.slot]: true }) })),
+            style: { position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }
+          }) : null
+        });
+      }),
+      services: servicesRaw.map((s, i) => {
+        const open = this.state.active === i;
+        const ease = 'cubic-bezier(.16,1,.3,1)';
+        return Object.assign({}, s, {
+          onEnter: () => this.setState({ active: i }),
+          colStyle: {
+            display: 'flex', flexDirection: 'column', borderLeft: i === 0 ? 'none' : '1px solid #3a3a3a',
+            padding: '0 28px 8px', minHeight: '340px', minWidth: 0, overflow: 'hidden',
+            flex: open ? 2.4 : 1, cursor: 'default',
+            transition: 'flex .9s ' + ease
+          },
+          titleStyle: {
+            margin: '0 0 26px', fontSize: '24px', fontWeight: 500, whiteSpace: 'nowrap',
+            color: open ? '#fff' : '#8a8a8a', transition: 'color .5s ease'
+          },
+          items: (s.items || []).map((text, j) => ({
+            text,
+            style: {
+              opacity: open ? 1 : 0, transform: open ? 'none' : 'translateY(14px)',
+              transition: 'opacity .6s ease ' + (open ? 120 + j * 80 : 0) + 'ms, transform .7s ' + ease + ' ' + (open ? 120 + j * 80 : 0) + 'ms'
+            }
+          })),
+          listStyle: {
+            margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column',
+            gap: '14px', fontSize: '17px', lineHeight: 1.45, color: '#a8a8a8', minWidth: '260px'
+          },
+          letterStyle: {
+            marginTop: 'auto', fontSize: '96px', fontWeight: 500, lineHeight: 1,
+            color: '#fff', opacity: open ? 1 : .6,
+            transition: 'opacity .6s ease'
+          }
+        });
+      }),
+      clients: clients.map((name, i) => ({ name: name, sep: i < clients.length - 1 }))
+    };
+  }
+}
+</script>
+</body>
+</html>
