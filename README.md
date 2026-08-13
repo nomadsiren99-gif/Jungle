@@ -19,9 +19,6 @@ That's it! Everything is running on a single port:
 - 🌐 **Agency Website:** [http://localhost:3000](http://localhost:3000)
 - ⚙️ **CMS Admin Panel:** [http://localhost:3000/admin](http://localhost:3000/admin)
 
-### 🔐 Admin Login Credentials
-- **Username:** `admin`
-- **Password:** `admin`
 
 *(You can change the password anytime inside the CMS).*
 
